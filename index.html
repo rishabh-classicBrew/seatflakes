@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>SeatFlex - Rewards</title>
+   <link rel="stylesheet" href="style.css">
+   <style>
+       body {
+           font-family: 'Arial', sans-serif;
+           background-color: #f0f4f8;
+           margin: 0;
+           padding: 0;
+       }
+       header {
+           background-color: #1a4ae5;
+           color: #fff;
+           padding: 15px 0;
+           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+       }
+       header nav ul {
+           list-style: none;
+           padding: 0;
+           display: flex;
+           justify-content: center;
+           gap: 20px;
+       }
+       header nav ul li {
+           margin: 0;
+       }
+       header nav ul li a {
+           color: #fff;
+           text-decoration: none;
+           font-weight: bold;
+           padding: 8px 12px;
+           transition: background 0.3s;
+       }
+       header nav ul li a:hover {
+           background: rgba(255, 255, 255, 0.2);
+           border-radius: 5px;
+       }
+       .hero {
+           background: url('https://i.pinimg.com/736x/6c/05/0d/6c050df0a7f6282de78c5e22757b68fe.jpg') no-repeat center center/cover;
+           color: #020000;
+           text-align: center;
+           padding: 100px 20px;
+           position: relative;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+       }
+       .opaque-box {
+           background-color: rgba(255, 255, 255, 0.8);
+           padding: 30px;
+           border-radius: 10px;
+           max-width: 600px;
+           text-align: center;
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+       }
+       .opaque-box h2, .opaque-box p {
+           margin: 20px 0;
+       }
+       .btn {
+           background-color: #0c325b;
+           color: #fff;
+           padding: 10px 20px;
+           text-decoration: none;
+           display: inline-block;
+           margin-top: 20px;
+           border-radius: 5px;
+           transition: background-color 0.3s;
+       }
+       .btn:hover {
+           background-color: #092846;
+       }
+       .cards, .how-it-works, .cta {
+           padding: 50px 20px;
+           text-align: center;
+       }
+       .cards {
+           display: flex;
+           justify-content: center;
+           gap: 20px;
+           flex-wrap: wrap;
+       }
+       .card {
+           background: #fff;
+           border: 1px solid #ddd;
+           padding: 20px;
+           width: 300px;
+           border-radius: 10px;
+           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+           transition: transform 0.3s, box-shadow 0.3s;
+       }
+       .card:hover {
+           transform: translateY(-5px);
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+       }
+       .card img {
+           max-width: 100%;
+           height: auto;
+           border-radius: 10px;
+       }
+       .how-it-works {
+           background-color: #e6efff;
+           padding: 50px 20px;
+           border-radius: 10px;
+           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+       }
+       .how-it-works h2 {
+           margin-bottom: 30px;
+           color: #1a4ae5;
+       }
+       .how-it-works ul {
+           list-style: none;
+           padding: 0;
+       }
+       .how-it-works ul li {
+           margin-bottom: 20px;
+           font-size: 18px;
+           display: flex;
+           align-items: center;
+       }
+       .how-it-works ul li i {
+           font-size: 24px;
+           color: #1a4ae5;
+           margin-right: 15px;
+       }
+       .cta h2 {
+           margin-bottom: 20px;
+       }
+   </style>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+   <header>
+       <nav>
+           <ul>
+               <li><a href="./index.html">Home</a></li>
+               <li><a href="./about/about.html">About</a></li>
+               <li><a href="contact/contact.html">Contact</a></li>
+               <li><a href="./signup/signup.html">Login or Sign Up</a></li>
+               <li><a href="rewards/rewards.html">Rewards</a></li>
+           </ul>
+       </nav> 
+   </header>
+ 
+   <main>
+       <div class="centered">
+           <Header>SeatFlex Rewards</Header>
+       </div>
+
+
+       <section class="hero">
+           <div class="opaque-box">
+               <h2>Earn and Redeem Points</h2>
+               <h2>Rebook on upgraded flights, at your own pace</h2>
+               <h2>Get exclusive discounts on hotels and car rentals</h2>
+               <h2>Enjoy priority boarding and free checked bags</h2>
+               <a href="signup-login.html" class="btn">Sign Up Today</a>
+               <p>SeatFlex is a smarter solution to overbooking. Sign up, get rewards, and enjoy your flight!</p>
+           </div>
+       </section>
+     
+       <section class="cards">
+           <div class="card">
+               <img src="https://static.vecteezy.com/system/resources/previews/014/347/348/non_2x/first-class-soft-armchair-icon-cartoon-style-vector.jpg" alt="Upgrade to First Class">
+               <h3>First-Class Upgrades</h3>
+               <p>Redeem points to upgrade your seat to first class on your next flight with participating airlines.</p>
+           </div>
+           <div class="card">
+               <img src="https://cbx-prod.b-cdn.net/COLOURBOX49160499.jpg?width=800&height=800&quality=70" alt="Discounted Flights">
+               <h3>Discounted Flights</h3>
+               <p>Use your points to get discounts on flights. Travel further for less with SeatFlex!</p>
+           </div>
+           <div class="card">
+               <img src="https://thumbs.dreamstime.com/b/vector-single-cartoon-blue-avia-ticket-boarding-pass-107364801.jpg" alt="Priority Boarding">
+               <h3>Priority Boarding</h3>
+               <p>Earn priority boarding status on flights, making sure you're one of the first to board the plane.</p>
+           </div>
+       </section>
+
+
+       <section class="how-it-works">
+           <h2>How It Works</h2>
+           <p>Joining the SeatFlex rewards program is simple! Here's how you can start earning points:</p>
+           <ul>
+               <li><i class="fas fa-user-plus"></i> <strong>Sign Up</strong> - Create your SeatFlex account for free.</li>
+               <li><i class="fas fa-hands-helping"></i> <strong>Volunteer</strong> - Volunteer to be bumped for reward eligibility.</li>
+               <li><i class="fas fa-plane"></i> <strong>Fly & Earn</strong> - Earn points with every eligible flight.</li>
+               <li><i class="fas fa-gift"></i> <strong>Redeem</strong> - Use your points to unlock rewards and upgrades.</li>
+           </ul>
+       </section>
+
+
+       <section class="cta">
+           <h2>Ready to Join?</h2>
+           <p>Sign up today and start earning points for your next flight!</p>
+           <a href="signup-login.html" class="btn">Join Now</a>
+       </section>
+   </main>
+</body>
+</html>
