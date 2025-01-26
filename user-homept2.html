@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>User Home - Seat Flex by American Airlines</title>
+   <style>
+       body {
+           font-family: Georgia, serif;
+           background-color: #f0f8ff;
+           margin: 0;
+           padding: 0;
+           color: #333;
+           line-height: 1.6;
+       }
+       .container {
+           width: 90%;
+           max-width: 1200px;
+           margin: auto;
+           overflow: hidden;
+       }
+       header {
+           background: linear-gradient(to right, #003366, #0056b3);
+           color: #fff;
+           padding: 1rem 0;
+           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+       }
+       .profile {
+           display: flex;
+           align-items: center;
+           cursor: pointer;
+           position: absolute;
+           right: 2rem;
+           background: rgba(255, 255, 255, 0.1);
+           padding: 0.5rem 1rem;
+           border-radius: 2rem;
+           transition: background 0.3s ease;
+       }
+       .profile:hover {
+           background: rgba(255, 255, 255, 0.2);
+       }
+       .profile img {
+           width: 40px;
+           height: 40px;
+           border-radius: 50%;
+           margin-left: 1rem;
+           border: 2px solid #fff;
+       }
+       .dropdown {
+           display: none;
+           position: absolute;
+           top: 60px;
+           right: 1rem;
+           background-color: #fff;
+           box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+           border-radius: 0.5rem;
+           z-index: 1;
+           overflow: hidden;
+       }
+       .dropdown a {
+           color: #333;
+           padding: 0.75rem 1.5rem;
+           display: block;
+           text-decoration: none;
+           transition: background 0.3s ease;
+       }
+       .dropdown a:hover {
+           background-color: #e6f2ff;
+       }
+       .section-title {
+           text-align: center;
+           margin: 2rem 0;
+           font-size: 2rem;
+           color: #003366;
+           font-weight: bold;
+       }
+       .active-flights {
+           display: flex;
+           justify-content: space-around;
+           flex-wrap: wrap;
+           gap: 2rem;
+       }
+       .ticket-container {
+           flex: 1;
+           min-width: 300px;
+           max-width: 450px;
+       }
+       .ticket {
+           background: #fff;
+           padding: 1.5rem;
+           border-radius: 1rem;
+           box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+           transition: transform 0.3s, box-shadow 0.3s;
+       }
+       .ticket:hover {
+           transform: translateY(-5px);
+           box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+       }
+       .ticket .header {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           margin-bottom: 1rem;
+           padding-bottom: 1rem;
+           border-bottom: 1px solid #e0e0e0;
+       }
+       .ticket h3 {
+           margin: 0;
+           color: #003366;
+           font-size: 1.4rem;
+       }
+       .ticket p {
+           margin: 0.5rem 0;
+           font-size: 1rem;
+       }
+       .alert {
+           color: #d9534f;
+           margin-top: 1rem;
+           text-align: center;
+           font-style: italic;
+       }
+       .alert a {
+           color: #d9534f;
+           text-decoration: underline;
+       }
+       .my-rewards {
+           text-align: center;
+           margin-top: 3rem;
+           position: relative;
+       }
+       .my-points {
+           font-size: 1.2rem;
+           color: #003366;
+           margin-bottom: 1rem;
+       }
+       .my-points::before {
+           content: '★ ';
+           color: #ffd700;
+           margin-right: 0.25rem;
+       }
+       .rewards-list {
+           list-style-type: none;
+           padding: 0;
+           display: flex;
+           justify-content: center;
+           flex-wrap: wrap;
+           gap: 1.5rem;
+       }
+       .rewards-list li {
+           background-color: #fff;
+           border: 2px solid #0056b3;
+           border-radius: 0.5rem;
+           padding: 1rem;
+           width: 200px;
+           text-align: center;
+           cursor: pointer;
+           transition: all 0.3s ease;
+       }
+       .rewards-list li:hover {
+           background-color: #e6f2ff;
+           transform: translateY(-5px);
+       }
+       .rewards-list li img {
+           width: 50px;
+           height: 50px;
+           margin-bottom: 0.5rem;
+       }
+       .rewards-tooltip {
+           visibility: hidden;
+           position: absolute;
+           bottom: 125%;
+           left: 50%;
+           transform: translateX(-50%);
+           background-color: #003366;
+           color: #fff;
+           text-align: center;
+           padding: 0.5rem 1rem;
+           border-radius: 0.25rem;
+           z-index: 1;
+           opacity: 0;
+           transition: opacity 0.3s;
+       }
+       .rewards-list li:hover .rewards-tooltip {
+           visibility: visible;
+           opacity: 1;
+       }
+       .modal {
+           display: none;
+           position: fixed;
+           z-index: 1000;
+           left: 0;
+           top: 0;
+           width: 100%;
+           height: 100%;
+           overflow: auto;
+           background-color: rgba(0, 0, 0, 0.5);
+       }
+       .modal-content {
+           background-color: #fff;
+           margin: 15% auto;
+           padding: 2rem;
+           border: 1px solid #888;
+           width: 80%;
+           max-width: 500px;
+           border-radius: 1rem;
+           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+       }
+       .close-button {
+           color: #aaa;
+           float: right;
+           font-size: 28px;
+           font-weight: bold;
+           cursor: pointer;
+           transition: color 0.3s ease;
+       }
+       .close-button:hover {
+           color: #000;
+       }
+       .chat-button {
+           position: fixed;
+           bottom: 2rem;
+           right: 2rem;
+           background-color: #0056b3;
+           color: white;
+           padding: 1rem;
+           border-radius: 50%;
+           cursor: pointer;
+           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+           transition: background-color 0.3s ease;
+       }
+       .chat-button:hover {
+           background-color: #003366;
+       }
+       .chat-modal {
+           display: none;
+           position: fixed;
+           z-index: 1000;
+           left: 0;
+           top: 0;
+           width: 100%;
+           height: 100%;
+           background-color: rgba(0,0,0,0.5);
+       }
+       .chat-content {
+           max-width: 400px;
+           margin: 10% auto;
+           background: white;
+           padding: 2rem;
+           border-radius: 1rem;
+           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+       }
+       #chat-box {
+           height: 300px;
+           overflow-y: auto;
+           border: 1px solid #ccc;
+           padding: 1rem;
+           margin-bottom: 1rem;
+           border-radius: 0.5rem;
+       }
+       #chat-input {
+           width: 100%;
+           padding: 0.5rem;
+           margin-bottom: 1rem;
+           border: 1px solid #ccc;
+           border-radius: 0.25rem;
+       }
+       #profile-name {
+           color: #000;
+       }
+       #confetti-container {
+           position: fixed;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           pointer-events: none;
+           z-index: 9999;
+       }
+   </style>
+</head>
+<body>
+   <div id="confetti-container"></div>
+   <header>
+       <div class="container">
+           <div class="profile" onclick="toggleDropdown()">
+               <span id="profile-name">John Doe</span>
+               <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Profile Icon">
+           </div>
+           <div class="dropdown" id="dropdown-menu">
+               <a href="#active-flights">Active Flights</a>
+               <a href="#my-rewards">My Rewards</a>
+               <a href="settings.html">My Profile</a>
+               <a href="#" onclick="signOut()">Sign Out</a>
+           </div>
+       </div>
+   </header>
+
+
+   <div class="container">
+       <div class="section-title">Active Flights</div>
+
+
+       <section class="active-flights" id="active-flights">
+           <div class="ticket-container">
+               <div class="ticket">
+                   <div class="header">
+                       <img src="https://external-preview.redd.it/noGVmHkGp3tV46SVyR3TSndGMlFp-2Vf3uLBm9UUZlY.png?auto=webp&s=fd18075339f5cf34ee0a7512ede6476c619a21cb" alt="AA Logo" style="width: 50px;">
+                       <h3>DFW -> CLL</h3>
+                   </div>
+                   <p>Sunday, January 26, 2025</p>
+                   <p>Departure: 4:40 PM</p>
+                   <p>Arrival: 5:42 PM</p>
+               </div>
+               <p class="alert"><span style="color: red;">*</span> You have signed up to be a volunteer for this overbooked flight</p>
+           </div>
+           <div class="ticket-container">
+               <div class="ticket">
+                   <div class="header">
+                       <img src="https://external-preview.redd.it/noGVmHkGp3tV46SVyR3TSndGMlFp-2Vf3uLBm9UUZlY.png?auto=webp&s=fd18075339f5cf34ee0a7512ede6476c619a21cb" alt="AA Logo" style="width: 50px;">
+                       <h3>LAX -> LHR</h3>
+                   </div>
+                   <p>Saturday, March 8, 2025</p>
+                   <p>Departure: 5:35 PM</p>
+                   <p>Arrival: 12:00 PM (Arrives March 9th)</p>
+               </div>
+           </div>
+       </section>
+
+
+       <div class="section-title">My Rewards</div>
+       <div class="my-rewards">
+           <p class="my-points">My Points: 600</p>
+           <ul class="rewards-list">
+               <li onclick="selectOption(this); showAlertModal();">
+                   <img src="https://cdn-icons-png.flaticon.com/512/691/691141.png" alt="Priority boarding">
+                   <p>800 Points</p>
+                   <div class="rewards-tooltip">Priority boarding</div>
+               </li>
+               <li onclick="selectOption(this); showAlertModal();">
+                   <img src="https://cdn-icons-png.flaticon.com/512/1995/1995964.png" alt="Free extra bag check-in">
+                   <p>1500 Points</p>
+                   <div class="rewards-tooltip">Free extra bag check-in</div>
+               </li>
+               <li onclick="selectOption(this); showAlertModal();">
+                   <img src="https://cdn-icons-png.flaticon.com/512/1189/1189923.png" alt="AA Advantage points">
+                   <p>2500 Points</p>
+                   <div class="rewards-tooltip">1000 AA Advantage points</div>
+               </li>
+               <li onclick="selectOption(this); showAlertModal();">
+                   <img src="https://cdn-icons-png.flaticon.com/512/272/272535.png" alt="Discount">
+                   <p>5000 Points</p>
+                   <div class="rewards-tooltip">20% discount on future trip under certain conditions</div>
+               </li>
+               <li onclick="selectOption(this); showAlertModal();">
+                   <img src="https://static.thenounproject.com/png/713372-200.png" alt="Seat upgrade">
+                   <p>10000 Points</p>
+                   <div class="rewards-tooltip">Free upgrade seat to whatever's available</div>
+               </li>
+           </ul>
+       </div>
+   </div>
+
+
+   <div id="alert-modal" class="modal">
+       <div class="modal-content">
+           <span class="close-button">&times;</span>
+           <p id="alert-message">You do not have enough points to redeem this option.</p>
+       </div>
+   </div>
+
+
+   <button onclick="openChatModal()" class="chat-button">
+       💬
+   </button>
+
+
+   <div id="chat-modal" class="chat-modal">
+       <div class="chat-content">
+           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+               <h3 style="margin: 0;">AI Assistant</h3>
+               <span onclick="closeChatModal()" class="close-button">&times;</span>
+           </div>
+           <div id="chat-box">
+               <div style="text-align: left; margin: 10px 0; padding: 5px; background-color: #f0f0f0;">
+                   Hello! How can I help you with your flight or rewards?
+               </div>
+           </div>
+           <div style="display: flex;">
+               <input type="text" id="chat-input" placeholder="Ask about flights, rewards...">
+               <button onclick="sendChatMessage()" style="margin-left: 10px; background-color: #0056b3; color: white; border: none; padding: 10px; border-radius: 0.25rem;">Send</button>
+           </div>
+       </div>
+   </div>
+
+
+   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+   <script>
+       function getUrlParameter(name) {
+           name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+           const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+           const results = regex.exec(location.search);
+           return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+       }
+
+
+       window.onload = function() {
+           let points = getUrlParameter('points');
+           if (points) {
+               const elements = document.getElementsByClassName('my-points');
+               for (let i = 0; i < elements.length; i++) {
+                   elements[i].textContent = `★ My Points: ${points}`;
+               }
+           }
+           confetti({
+               particleCount: 100,
+               spread: 70,
+               origin: { y: 0.6 }
+           });
+       };
+
+
+       function showAlertModal() {
+           const modal = document.getElementById('alert-modal');
+           modal.style.display = 'block';
+       }
+
+
+       document.querySelector('.close-button').addEventListener('click', function() {
+           const modal = document.getElementById('alert-modal');
+           modal.style.display = 'none';
+       });
+
+
+       window.addEventListener('click', function(event) {
+           const modal = document.getElementById('alert-modal');
+           if (event.target === modal) {
+               modal.style.display = 'none';
+           }
+       });
+
+
+       function toggleDropdown() {
+           var dropdown = document.getElementById("dropdown-menu");
+           if (dropdown.style.display === "none" || dropdown.style.display === "") {
+               dropdown.style.display = "block";
+           } else {
+               dropdown.style.display = "none";
+           }
+       }
+
+
+       function redirectToActiveFlights() {
+           window.location.href = '#active-flights';
+       }
+
+
+       function signOut() {
+           window.location.href = 'index.html';
+       }
+
+
+       function selectOption(option) {
+           var options = document.querySelectorAll('.rewards-list li');
+           options.forEach(function(opt) {
+               opt.classList.remove('selected');
+               opt.style.border = '2px solid #0056b3';
+           });
+           option.classList.add('selected');
+           option.style.border = '2px solid #d9534f';
+
+
+           document.getElementById('alert-message').style.display = 'block';
+       }
+
+
+       window.onclick = function(event) {
+           if (!event.target.matches('.profile img') && !event.target.matches('.profile span')) {
+               var dropdown = document.getElementById("dropdown-menu");
+               if (dropdown.style.display === "block") {
+                   dropdown.style.display = "none";
+               }
+           }
+       }
+
+
+       function openChatModal() {
+           document.getElementById('chat-modal').style.display = 'block';
+       }
+
+
+       function closeChatModal() {
+           document.getElementById('chat-modal').style.display = 'none';
+       }
+
+
+       function generateAIResponse(message) {
+           const lowerMessage = message.toLowerCase();
+           const responses = {
+               'flight': [
+                   "Your upcoming flights are from DFW to CLL on Jan 26, and LAX to LHR on Mar 8."
+               ],
+               'reward': [
+                   "You currently have 600 points. Rewards range from 800 to 10000 points. You can redeem rewards after reaching certain point requirements. Explore rewards like priority boarding, extra bag check-in, or seat upgrades in the my rewards section!"
+               ],
+               'get points': [
+                   "You can get points by signing up to be a volunteer for flights that are predicted to be overbooked. Each flight you sign up for, you will receive 100 points. And if you get chosen, you will receive 500 points!"
+               ],
+               'point': [
+                   "You have 600 points. Each reward requires a different point amount. Once you reach the requirements, you can click on the reward you want to redeem it!",
+                   "Check the My Rewards section to see point requirements for various perks. Once you reach the requirements, you can click on the reward you want to redeem it!"
+               ],
+               'seat': [
+                   "Seat selection and upgrades can be managed in your profile settings after you redeem your points",
+                   "You can use 10000 points for a free seat upgrade."
+               ],
+               'account': [
+                   "You can view your account by clicking on your profile picture on the top right, and clicking the My Profile icon. Through there, you are able to change your password"
+               ],
+               'help': [
+                   "I can help with flight information, rewards, points, and account queries.",
+                   "What specific information are you looking for?"
+               ],
+               'hello': [
+                   "Hi there! Welcome to Seat Flex. How can I assist you today?",
+                   "Hello! I'm here to help with your flight and rewards information."
+               ]
+           };
+
+
+           for (let [keyword, responseOptions] of Object.entries(responses)) {
+               if (lowerMessage.includes(keyword)) {
+                   return responseOptions[Math.floor(Math.random() * responseOptions.length)];
+               }
+           }
+
+
+           return "I'm not sure I understand. Could you rephrase your question about flights or rewards?";
+       }
+
+
+       function sendChatMessage() {
+           const input = document.getElementById('chat-input');
+           const message = input.value.trim();
+           const chatBox = document.getElementById('chat-box');
+
+
+           if (!message) return;
+
+
+           chatBox.innerHTML += `
+               <div style="text-align: right; margin: 10px 0; padding: 5px; background-color: #e6f2ff;">
+                   ${message}
+               </div>
+           `;
+
+
+           input.value = '';
+           chatBox.scrollTop = chatBox.scrollHeight;
+
+
+           setTimeout(() => {
+               const aiResponse = generateAIResponse(message);
+               chatBox.innerHTML += `
+                   <div style="text-align: left; margin: 10px 0; padding: 5px; background-color: #f0f0f0;">
+                       ${aiResponse}
+                   </div>
+               `;
+               chatBox.scrollTop = chatBox.scrollHeight;
+           }, 800);
+       }
+
+
+       document.getElementById('chat-input').addEventListener('keypress', function(e) {
+           if (e.key === 'Enter') sendChatMessage();
+       });
+
+
+       window.addEventListener('click', function(event) {
+           const modal = document.getElementById('chat-modal');
+           if (event.target === modal) {
+               closeChatModal();
+           }
+       });
+   </script>
+</body>
+</html>

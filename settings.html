@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>My Profile - Seat Flex by American Airlines</title>
+   <style>
+       body {
+           font-family: Georgia, serif;
+           background: linear-gradient(to right, #004d99, #33adff);
+           margin: 0;
+           padding: 0;
+           color: #333;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: 100vh;
+       }
+       .settings-container {
+           background: #fff;
+           padding: 20px;
+           border: 2px solid #a8dadc;
+           border-radius: 10px;
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+           width: 400px;
+       }
+       .settings-container h2 {
+           text-align: center;
+           color: #457b9d;
+           margin-bottom: 20px;
+       }
+       .settings-container label {
+           display: block;
+           margin: 10px 0 5px;
+           color: #0033cc;
+       }
+       .settings-container input[type="text"],
+       .settings-container input[type="date"],
+       .settings-container input[type="password"] {
+           width: calc(100% - 22px);
+           padding: 10px;
+           margin-bottom: 15px;
+           border: 1px solid #a8dadc;
+           border-radius: 5px;
+       }
+       .settings-container button {
+           width: 100%;
+           padding: 10px;
+           background-color: #0033cc;
+           color: #fff;
+           border: none;
+           border-radius: 5px;
+           cursor: pointer;
+           transition: background-color 0.3s;
+           margin-bottom: 10px;
+       }
+       .settings-container button:hover {
+           background-color: #457b9d;
+       }
+       .settings-container .show-password {
+           margin: 10px 0;
+       }
+   </style>
+</head>
+<body>
+   <div class="settings-container">
+       <h2>My Profile</h2>
+       <label for="profileName">Profile Name:</label>
+       <input type="text" id="profileName" value="John Doe" disabled>
+       <label for="aaNumber">AA Advantage Number:</label>
+       <input type="text" id="aaNumber" value="1234567890" disabled>
+       <label for="birthday">Birthday:</label>
+       <input type="date" id="birthday" value="2000-12-31" disabled>
+       <label for="newPassword">New Password:</label>
+       <input type="password" id="newPassword">
+       <label for="confirmPassword">Confirm Password:</label>
+       <input type="password" id="confirmPassword">
+       <div class="show-password">
+           <input type="checkbox" id="showPasswordCheckbox" onclick="togglePasswordVisibility()">
+           <label for="showPasswordCheckbox">Show Password</label>
+       </div>
+       <button type="button" onclick="updateSettings()">Save and Return</button>
+       <button type="button" onclick="returnToUserPage()">Back</button>
+   </div>
+   <script>
+       function togglePasswordVisibility() {
+           var newPassword = document.getElementById('newPassword');
+           var confirmPassword = document.getElementById('confirmPassword');
+           if (newPassword.type === 'password') {
+               newPassword.type = 'text';
+               confirmPassword.type = 'text';
+           } else {
+               newPassword.type = 'password';
+               confirmPassword.type = 'password';
+           }
+       }
+       function updateSettings() {
+           alert("Settings have been updated!");
+           // Implement further update functionality here
+           // Redirect back to the user page after saving
+           window.location.href = "user-home.html";
+       }
+       function returnToUserPage() {
+           // Redirect back to the user page without saving
+           window.location.href = "user-home.html";
+       }
+   </script>
+</body>
+</html>
+
+
